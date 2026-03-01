@@ -29,6 +29,25 @@
       min-height: 700px;
     }
 
+    .form-group{
+      margin: 20px 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .form-group small {
+      display: block;
+      margin-top: 6px;
+    }
+
+    label {
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
     .logo {
       max-width: 100px;
       padding: 6px;
@@ -170,16 +189,31 @@
       flex-direction: column;
       align-items: center;
       gap: 15px;
-      margin: 20px 0;
+      margin-top: 30px;
+
+      /* Tambahan agar sama seperti TTD */
+      padding: 20px;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+      text-align: center;
     }
 
     .camera-wrapper video,
     .camera-wrapper canvas {
-      width: 300px;
-      max-height: 50vh;
-      border-radius: 20px;
+      width: 100%;
+      max-width: 300px;
+      border-radius: 15px;
       object-fit: cover;
       box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+
+    .judul-foto {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
     }
 
     .camera-actions {
@@ -204,6 +238,86 @@
     .camera-actions button:hover {
       transform: scale(1.05);
     }
+    
+    .signature-wrapper {
+      margin-top: 30px;
+      padding: 20px;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+
+    .judul-signature {
+      display: block;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      letter-spacing: 1px;
+    }
+
+    .signature-box {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    #signaturePad {
+      width: 100%;
+      max-width: 300px;
+      height: 200px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: inset 0 4px 12px rgba(0,0,0,0.15);
+      cursor: crosshair;
+      touch-action: none;
+    }
+
+    .signature-hint {
+      position: absolute;
+      bottom: 8px;
+      font-size: 14px;
+      color: rgba(0,0,0,0.4);
+    }
+
+    .signature-actions {
+      margin-top: 18px;
+    }
+
+    .signature-actions button {
+      background: linear-gradient(90deg, #ef4444, #dc2626);
+      color: white;
+      border: none;
+      padding: 10px 25px;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    .signature-actions button:hover {
+      transform: scale(1.05);
+    }
+
+    .camera-wrapper,
+    .signature-wrapper {
+      max-width: 650px;
+      margin: 30px auto 0 auto; /* agar tetap di tengah */
+    }
+
+    /* Responsive HP */
+    @media (max-width: 600px) {
+      #signaturePad {
+        height: 160px;
+      }
+
+      .judul-signature {
+        font-size: 16px;
+      }
+    }        
 
     .btn {
       background: linear-gradient(90deg, #2563eb, #3b82f6);
@@ -258,52 +372,52 @@
 
     <div class="form-group">
       <label>TUJUAN POKJA PEMILIHAN :</label>
-      <p><div class="multiselect">
-        <div class="select-box" onclick="toggleDropdown()">
-          <span id="selectedPokja">Pilih Pokja Pemilihan yang akan dituju</span>
-          <span class="arrow">▼</span>
+        <div class="multiselect">
+          <div class="select-box" onclick="toggleDropdown()">
+            <span id="selectedPokja">Pilih Pokja Pemilihan yang akan dituju</span>
+            <span class="arrow">▼</span>
+          </div>
+          <div id="dropdownPokja" class="dropdown-options">
+            <input type="text" id="searchPokja" placeholder="Cari Pokja Pemilihan..." onkeyup="filterPokja()" />
+            <div id="pokjaList"></div>
+          </div>
         </div>
-        <div id="dropdownPokja" class="dropdown-options">
-          <input type="text" id="searchPokja" placeholder="Cari Pokja Pemilihan..." onkeyup="filterPokja()" />
-          <div id="pokjaList"></div>
-        </div>
-      </div>
       <small>*Pilih Pokja Pemilihan sesuai undangan. Pilih lebih dari 1 jika mendapatkan lebih dari 1 undangan</small></p>
     </div>
 
     <div class="form-group">
       <label>NAMA PERUSAHAAN :</label>
-      <p><input type="text" id="perusahaan" autocomplete="off" placeholder="Masukkan nama perusahaan sesuai akta pendirian / akta perubahan" required>
-      <small>*Mohon diperhatikan penulisan huruf besar dan kecil (kapitalisasi) karena dapat mempengaruhi keakuratan data yang masuk.</small></p>
+      <input type="text" id="perusahaan" autocomplete="off" placeholder="Masukkan nama perusahaan sesuai akta pendirian / akta perubahan" required>
+      <small>*Mohon diperhatikan penulisan huruf besar dan kecil (kapitalisasi) karena dapat mempengaruhi keakuratan data yang masuk.</small>
     </div>
 
     <div class="form-group">
       <label>NAMA LENGKAP :</label>
-      <p><input type="text" id="nama" oninput="this.value=this.value.toUpperCase()" autocomplete="off" placeholder="Masukkan nama lengkap sesuai KTP" required></p>
+      <input type="text" id="nama" oninput="this.value=this.value.toUpperCase()" autocomplete="off" placeholder="Masukkan nama lengkap sesuai KTP" required>
     </div>
 
     <div class="form-group">
       <label>NIK :</label>
-      <p><input type="text" id="nik" maxlength="16" inputmode="numeric" oninput="this.value=this.value.replace(/[^0-9]/g,'')" autocomplete="off" placeholder="Masukkan Nomor Induk Kependudukan (NIK) 16 digit" required></p>
+      <input type="text" id="nik" maxlength="16" inputmode="numeric" oninput="this.value=this.value.replace(/[^0-9]/g,'')" autocomplete="off" placeholder="Masukkan Nomor Induk Kependudukan (NIK) 16 digit" required>
     </div>
 
     <div class="form-group">
       <label>JENIS KELAMIN :</label>
-      <p><select id="jk" required>
+      <select id="jk" required>
         <option value="" disabled selected>Pilih jenis kelamin</option>
         <option value="LAKI-LAKI">LAKI-LAKI</option>
         <option value="PEREMPUAN">PEREMPUAN</option>
-      </select></p>
+      </select>
     </div>
 
     <div class="form-group">
       <label>JABATAN :</label>
-      <p><input type="text" id="jabatan" oninput="this.value=this.value.toUpperCase()" autocomplete="off" placeholder="Masukkan jabatan dalam perusahaan" required></p>
+      <input type="text" id="jabatan" oninput="this.value=this.value.toUpperCase()" autocomplete="off" placeholder="Masukkan jabatan dalam perusahaan" required>
     </div>
 
     <div class="form-group">
       <label>NO TELEPON :</label>
-      <p><input type="text" id="telepon" maxlength="15" inputmode="numeric" oninput="this.value=this.value.replace(/[^0-9]/g,'')" autocomplete="off" placeholder="Masukkan nomor telepon menggunakan awalan 62 (contoh: 6282246758975)" required></p>
+      <input type="text" id="telepon" maxlength="15" inputmode="numeric" oninput="this.value=this.value.replace(/[^0-9]/g,'')" autocomplete="off" placeholder="Masukkan nomor telepon menggunakan awalan 62 (contoh: 6282246758975)" required>
     </div>
 
     <div class="camera-wrapper">
@@ -313,21 +427,34 @@
       <canvas id="canvas" style="display:none;"></canvas>
 
       <div class="camera-actions">
-        <button type="button" id="btnCamera" onclick="aktifkanKamera()">AKTIFKAN KAMERA</button>
+        <button type="button" id="btnCamera" onclick="ambilFoto()">AMBIL FOTO</button>
       </div>
     </div>
 
-    <p id="status"></p>
+    <div class="signature-wrapper">
+      <label class="judul-signature">TANDA TANGAN :</label>
 
-    <p><button id="btnHadir" class="btn" onclick="kirim()" disabled>
+      <div class="signature-box">
+        <canvas id="signaturePad"></canvas>
+        <span class="signature-hint">Silahkan tanda tangan di area putih</span>
+      </div>
+
+      <div class="signature-actions">
+        <button type="button" onclick="clearSignature()">
+          HAPUS TANDA TANGAN
+        </button>
+      </div>
+    </div>  
+
+    <button id="btnHadir" class="btn" onclick="kirim()" disabled>
       <span id="btnText">KIRIM</span>
       <span id="spinner" class="spinner"></span>
-    </button></p>
+    </button>
 
   </div>
 
   <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycbzyi3OHsZM9jxryeUYtKOCkDTYLaQeQFAO2lgrtRXbc8LSWqqdknDSI6Zn6zwW3oz-O/exec";
+    const API_URL = "https://script.google.com/macros/s/AKfycbx6qhw7GJ9irupl3Fu3ppOXzPeEitQ5lY3vabp-8BSTJ2oA3hh4P6fhYrCDJKVEhyKF/exec";
 
     /* ===== TANGGAL UNTUK HEAD ===== */
     const tw = new Date();
@@ -398,6 +525,7 @@
 
     window.onload = function() {
       loadPokja(); // load pokja dari spreadsheet
+      aktifkanKamera();
     };
 
     /* ===== KAMERA ===== */
@@ -447,22 +575,19 @@
         video.style.display = "block";
         canvas.style.display = "none";
 
-        btn.innerText = "AMBIL FOTO";
-        btn.onclick = ambilFoto;
-
         kameraAktif = true;
 
       } catch (err) {
          console.error("ERROR KAMERA:", err);
   
         if (err.name === "NotAllowedError") {
-          alert("IZIN KAMERA DITOLAK.\n\nSilakan klik ikon 🔒 di address bar → Site Settings → Camera → Allow → Reload halaman.");
+          alert("IZIN KAMERA DITOLAK.");
         } 
         else if (err.name === "NotFoundError") {
           alert("KAMERA TIDAK DITEMUKAN DI PERANGKAT.");
         } 
         else if (err.name === "NotReadableError") {
-          alert("KAMERA SEDANG DIGUNAKAN APLIKASI LAIN (Zoom / Teams / dll).");
+          alert("KAMERA SEDANG DIGUNAKAN APLIKASI LAIN.");
         } 
         else {
           alert("KAMERA TIDAK BISA DIAKSES:\n" + err.message);
@@ -478,7 +603,6 @@
         // reset status foto
         fotoDiambil = false;
         document.getElementById("btnHadir").disabled = true;
-        document.getElementById("status").innerText = "Silakan ambil foto wajah terlebih dahulu";
 
         canvas.style.display = "none";
         video.style.display = "block";
@@ -511,7 +635,6 @@
       // aktifkan tombol kirim karena foto sudah ada
       fotoDiambil = true;
       document.getElementById("btnHadir").disabled = false;
-      document.getElementById("status").innerText = "FOTO BERHASIL DIAMBIL";
     }
 
     function getCompressedImage(maxKB = 100) {
@@ -521,6 +644,18 @@
         dataUrl = canvas.toDataURL("image/jpeg", quality);
         quality -= 0.05;
       } while ((dataUrl.length * 3 / 4) / 1024 > maxKB && quality > 0.3);
+      return dataUrl;
+    }
+
+    function getCompressedSignature(maxKB = 100) {
+      let quality = 0.8;
+      let dataUrl;
+
+      do {
+        dataUrl = signatureCanvas.toDataURL("image/jpeg", quality);
+        quality -= 0.05;
+      } while ((dataUrl.length * 3 / 4) / 1024 > maxKB && quality > 0.3);
+
       return dataUrl;
     }
 
@@ -540,6 +675,85 @@
         }
     }
 
+    /* ===== SIGNATURE PAD ===== */
+
+    const signatureCanvas = document.getElementById("signaturePad");
+    const sigCtx = signatureCanvas.getContext("2d");
+
+    let isDrawing = false;
+    let tandaTanganAda = false;
+
+    // Resize canvas agar resolusi bagus
+    function resizeSignatureCanvas() {
+      const ratio = window.devicePixelRatio || 1;
+
+      const width = signatureCanvas.offsetWidth;
+      const height = signatureCanvas.offsetHeight;
+
+      signatureCanvas.width = width * ratio;
+      signatureCanvas.height = height * ratio;
+
+      signatureCanvas.getContext("2d").setTransform(1, 0, 0, 1, 0, 0);
+      sigCtx.scale(ratio, ratio);
+
+      sigCtx.lineWidth = 2;
+      sigCtx.lineCap = "round";
+      sigCtx.strokeStyle = "#1e3a8a"; // warna tinta biru elegan
+    }
+
+    resizeSignatureCanvas();
+    window.addEventListener("resize", resizeSignatureCanvas);
+
+    // Mouse
+    signatureCanvas.addEventListener("mousedown", startDraw);
+    signatureCanvas.addEventListener("mouseup", stopDraw);
+    signatureCanvas.addEventListener("mousemove", draw);
+
+    // Touch (HP)
+    signatureCanvas.addEventListener("touchstart", startDraw);
+    signatureCanvas.addEventListener("touchend", stopDraw);
+    signatureCanvas.addEventListener("touchmove", draw);
+
+    function getPosition(e) {
+      const rect = signatureCanvas.getBoundingClientRect();
+      if (e.touches) {
+        return {
+          x: e.touches[0].clientX - rect.left,
+          y: e.touches[0].clientY - rect.top
+        };
+      }
+      return {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
+      };
+    }
+
+    function startDraw(e) {
+      isDrawing = true;
+      tandaTanganAda = true;
+
+      const pos = getPosition(e);
+      sigCtx.beginPath();
+      sigCtx.moveTo(pos.x, pos.y);
+    }
+
+    function stopDraw() {
+      isDrawing = false;
+    }
+
+    function draw(e) {
+      if (!isDrawing) return;
+      e.preventDefault();
+      const pos = getPosition(e);
+      sigCtx.lineTo(pos.x, pos.y);
+      sigCtx.stroke();
+    }
+
+    function clearSignature() {
+      sigCtx.clearRect(0, 0, signatureCanvas.width, signatureCanvas.height);
+      tandaTanganAda = false;
+    }
+
     async function kirim() {
 
         const pokja = getSelectedPokja();
@@ -551,18 +765,24 @@
         const telepon = document.getElementById("telepon").value;
 
         if (!pokja || !perusahaan || !nama || !nik || !jk || !jabatan || !telepon) {
-            alert("Semua data wajib diisi");
-            return;
+          alert("Semua data wajib diisi");
+          return;
         }
 
         if (!fotoDiambil) {
-            alert("Foto wajib diambil");
-            return;
+          alert("Foto wajib diambil");
+          return;
+        }
+
+        if (!tandaTanganAda) {
+          alert("Tanda tangan wajib diisi");
+          return;
         }
 
         setLoading(true);
 
         const foto = getCompressedImage(100);
+        const tandaTangan = getCompressedSignature(100);
 
         const formData = new URLSearchParams();
         formData.append("pokja", pokja);
@@ -573,6 +793,7 @@
         formData.append("jabatan", jabatan);
         formData.append("telepon", telepon);
         formData.append("foto", foto);
+        formData.append("tandaTangan", tandaTangan);
 
         try {
             const response = await fetch(API_URL, {
@@ -620,8 +841,8 @@
         canvas.width = 0;
         canvas.height = 0;
 
-        // reset status
-        document.getElementById("status").innerText = "";
+        // reset canvas ttd
+        clearSignature();
 
         // reset tombol
         setLoading(false);
