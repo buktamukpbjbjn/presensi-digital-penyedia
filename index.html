@@ -777,11 +777,15 @@
         const nik = document.getElementById("nik").value;
         const jk = document.getElementById("jk").value;
         const jabatan = document.getElementById("jabatan").value;
-        const telepon = document.getElementById("telepon").value;
+        let telepon = document.getElementById("telepon").value;
 
         if (!pokja || !perusahaan || !nama || !nik || !jk || !jabatan || !telepon) {
           alert("Semua data wajib diisi");
           return;
+        }
+
+        if (telepon !== "" && !telepon.startsWith("'")) {
+          telepon = "'" + telepon;
         }
 
         if (!fotoDiambil) {
